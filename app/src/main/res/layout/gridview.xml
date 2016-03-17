@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="3"
+    >
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:id="@+id/mapbar"
+        android:background="#ffffff">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/onthego"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Drive-Thru"/>
+
+    </RelativeLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:layout_height="60dp"
+        android:id="@+id/edittxtSearchTokenId"
+        android:padding="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/backgroundgrey"
+        android:hint="Search Token/OrderId"
+       />
+    <android.support.v7.widget.RecyclerView
+        android:visibility="gone"
+        android:layout_weight="2.6"
+        android:layout_width="match_parent"
+
+        android:padding="10dp"
+        android:background="@drawable/backgroundslected"
+        android:layout_height="0dp" />
+    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/gridview"
+        android:layout_weight="2.6"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+
+        android:numColumns="1"
+        android:listSelector="@drawable/item_selector"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        android:padding="5dp"
+        android:background="@color/white"
+        android:layout_weight=".4"
+        >
+
+        <Button
+            android:layout_width="0dp"
+           android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:id="@+id/btnPickUp"
+            android:layout_marginLeft="5dp"
+
+            android:text="Picked Up"
+            android:layout_marginRight="5dp"
+            />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:layout_weight="1"
+            android:id="@+id/btnDeliver"
+
+            android:layout_marginRight="5dp"
+            android:text="Deliver"
+
+            />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_weight="1"
+            android:id="@+id/btnStale"
+            android:layout_marginRight="5dp"
+
+            android:background="@color/white"
+            android:textColor="@color/selected"
+            android:text="Other"
+            android:padding="5dp"
+            />
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

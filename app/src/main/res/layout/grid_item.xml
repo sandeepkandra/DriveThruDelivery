@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.daimajia.swipe.SwipeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipe"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:tag="Bottom2"
+        android:background="#333"
+        android:layout_width="180dp"
+        android:gravity="center"
+        android:id="@+id/lnrtrash"
+        android:layout_height="120dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/orderedpickup"
+            android:layout_toRightOf="@+id/imgvwshowtxt"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtVwStatus1"
+
+                android:textColor="#000000"
+                android:layout_gravity="center_vertical"
+                android:text=""/>
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="5dp"
+                android:text="Order ID"
+                android:id="@+id/imgVwSwipePickup"
+
+                android:layout_toRightOf="@+id/txtVwStatus"
+
+                /></LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="4"
+        >
+        <!-- <ImageView
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:src="@drawable/pickedup"
+             android:id="@+id/txtVwOrderId"
+             android:visibility="gone"/>-->
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/relativeLayout"
+            android:layout_weight="4"
+
+            android:padding="10dp">
+            <ImageView
+                android:layout_width="98dp"
+                android:layout_height="98dp"
+                android:src="@drawable/user_profile"
+                android:id="@+id/imgVwConsumer"
+                />
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_below="@+id/imgVwConsumer"
+                android:layout_marginLeft="15dp"
+
+                android:id="@+id/imgVwCar"
+                />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/imgVwConsumer">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+
+                    android:layout_marginLeft="15dp"
+                    android:id="@+id/r1"
+                    android:layout_gravity="center">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tokentxt"
+                        android:textSize="35sp"
+                        android:textStyle="bold"
+                        android:textColor="#000000"
+                        android:text="Token : "/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="20"
+                        android:textColor="#000000"
+                        android:textSize="35sp"
+                        android:textStyle="bold"
+                        android:id="@+id/txVwTokenNumber"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/tokentxt"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/r2"
+                    android:layout_marginLeft="15dp"
+                    android:layout_below="@+id/r1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tokentxt1"
+                        android:textColor="#000000"
+                        android:textSize="20sp"
+                        android:layout_centerVertical="true"
+                        android:text="OrderId:"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:hint="ABDC23"
+                        android:textSize="20sp"
+                        android:textColor="#000000"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:background="@drawable/backgroundgreylesscorner"
+                        android:layout_centerVertical="true"
+                        android:id="@+id/txtVwtokenid"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/tokentxt1"/>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:padding="5dp"
+                    android:id="@+id/r3"
+                    android:layout_below="@+id/r2">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:text="Order ID"
+                        android:src="@drawable/boxfilled"
+                        android:id="@+id/imgvwshowtxt"
+                        android:layout_marginLeft="25dp"
+
+                        />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:id="@+id/lnrOrderedPlaced"
+                        android:background="@drawable/backgroundgreylesscorner"
+                        android:layout_toRightOf="@+id/imgvwshowtxt"
+                        android:layout_marginLeft="10dp"
+                        android:padding="5dp"
+                        >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/txtVwStatus"
+                        android:textColor="#000000"
+                        android:layout_gravity="center_vertical"
+                        android:text="Ready To Pickup"/>
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginLeft="5dp"
+                        android:text="Order ID"
+                        android:id="@+id/imgVwPickup"
+
+                        android:layout_toRightOf="@+id/txtVwStatus"
+
+                        /></LinearLayout>
+
+                </RelativeLayout>
+                <TextView
+                    android:layout_width="270dp"
+                    android:layout_height="wrap_content"
+                    android:text="Product: Capichino"
+                    android:scrollbars="vertical"
+                    android:visibility="gone"
+                    android:padding="10dp"
+                    android:textColor="#000000"
+                    android:background="@drawable/backgroundgreylesscorner"
+                    android:layout_below="@+id/r3"
+                    android:id="@+id/txtVwOrderDetailsShow"/>
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+   <!-- <LinearLayout
+        android:padding="10dp"
+        android:background="#ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/position"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:tag="Hover"
+            android:text="If winter comes , can spring be far behind ? \n"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>-->
+</com.daimajia.swipe.SwipeLayout>
