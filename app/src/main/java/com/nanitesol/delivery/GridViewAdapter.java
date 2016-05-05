@@ -146,12 +146,12 @@ int checkShowTxtBoxVal=-1,consumerid;
                     .placeholder(R.drawable.ic_launcher)
                     .crossFade()
                     .into(imgVwCar);
-
+Log.wtf("enterimg","");
         }
         else {
             imgVwCar.setVisibility(View.GONE);
 
-                //imgVwCar.setBackgroundResource(R.drawable.carwithoutblink);
+            Log.wtf("enterimgrem","");  //imgVwCar.setBackgroundResource(R.drawable.carwithoutblink);
                // Picasso.with(mContext).load(get).into(imgVwCar);
 
         }

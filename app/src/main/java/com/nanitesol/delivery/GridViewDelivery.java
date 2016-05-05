@@ -48,6 +48,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.nanitesol.delivery.gson.OrderParent;
+import com.nanitesol.delivery.utility.GpsTracker;
 import com.pusher.client.Pusher;
 import com.pusher.client.channel.Channel;
 import com.pusher.client.channel.SubscriptionEventListener;
@@ -82,22 +83,10 @@ public class GridViewDelivery extends Activity implements View.OnClickListener{
     String baseurl="https://blistering-torch-3715.firebaseio.com";
 
     int checkPDS;int checkShowTxtBoxVal=-1;
-    double clat,clng;
+    double mylongitude,mylatitude;
 
 
-    //The minimum distance to change updates in metters
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; //10 metters
 
-    //The minimum time beetwen updates in milliseconds
-    private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1; // 1 minute
-
-    //Declaring a Location Manager
-    protected LocationManager locationManager;
-    boolean isGPSEnabled,isNetworkEnabled;
-
-    boolean canGetLocation = false;
-
-    Location location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,6 +96,20 @@ public class GridViewDelivery extends Activity implements View.OnClickListener{
         Firebase.setAndroidContext(this);
 
         Firebase rootRef = new Firebase("https://blistering-torch-3715.firebaseio.com/storegeo");
+
+       /* try {
+            //LocationManager lm = (LocationManager)getActivity().getSystemService(Context.LOCATION_SERVICE);
+            //Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+           GpsTracker gpsTracker=new GpsTracker();
+            mylongitude = gpsTracker.latitude;
+            mylatitude =gpsTracker.longitude;
+            Log.wtf("lat",mylatitude+"");
+            Log.wtf("lat",mylongitude+"");
+        }
+        catch (Exception e)
+        {
+            Log.wtf("err",e.toString());
+        }*/
 
        /* rootRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -266,8 +269,13 @@ public class GridViewDelivery extends Activity implements View.OnClickListener{
 
         // Firebase f = new Firebase(baseurl);
         geoFire = new GeoFire( new Firebase("https://blistering-torch-3715.firebaseio.com/storegeo/store1"));
-        // GeoQuery geoQuery = geoFire.queryAtLocation(currentUserLocation, 1.6);0
-        GeoQuery geoQuery = geoFire.queryAtLocation(new GeoLocation(12.9294324,77.5924236), 5);
+        // GeoQuery geoQuery = geoFire.queryAtLocation(currentUserLocation, 1.6);0  12.908365
+
+        String lat=MyApp.sharedPreferences.getString("lat",12.848862+"");
+        String lng=MyApp.sharedPreferences.getString("lng",77.657596+"");
+        Log.wtf("lat",lat);
+        Log.wtf("lat",lng);
+        GeoQuery geoQuery = geoFire.queryAtLocation(new GeoLocation(Double.parseDouble(lat),Double.parseDouble(lng)), 0.1);
 
     /*    geoFire.getLocation("https://blistering-torch-3715.firebaseio.com/storegeo", new LocationCallback() {
             @Override
@@ -294,27 +302,27 @@ public class GridViewDelivery extends Activity implements View.OnClickListener{
 
             String conCheck="";
             @Override
-
-
             public void onKeyEntered(String key, GeoLocation location) {
-
-                Log.wtf("enter", key + location.latitude + location.longitude);
-                if(!(MyApp.sharedPreferences.getString("CheckConsumer","").equalsIgnoreCase("")))
-                {
-                    conCheck+=key+",";
-                    SharedPreferences.Editor editor=MyApp.sharedPreferences.edit();
-                    editor.remove("CheckConsumer").commit();
-
-                  //  conCheck=conCheck+key;
-                    SharedPreferences.Editor editor1 = MyApp.sharedPreferences.edit();
-                    editor1.putString("CheckConsumer", conCheck).commit();
-                }
-                else {
-                    conCheck+=key+",";
-                    SharedPreferences.Editor editor = MyApp.sharedPreferences.edit();
-                    editor.putString("CheckConsumer", conCheck).commit();
-                }
-                adapter.notifyDataSetChanged();
+try {
+    Log.wtf("enter", key + location.latitude + location.longitude);
+    if (!(MyApp.sharedPreferences.getString("CheckConsumer", "").equalsIgnoreCase(""))) {
+        conCheck += key + ",";
+        SharedPreferences.Editor editor = MyApp.sharedPreferences.edit();
+        editor.remove("CheckConsumer").commit();
+Log.wtf("entered rem",conCheck);
+        //  conCheck=conCheck+key;
+        SharedPreferences.Editor editor1 = MyApp.sharedPreferences.edit();
+        editor1.putString("CheckConsumer", conCheck).commit();
+        getOrders();
+        generateNotification(getApplicationContext(),"Entered");
+    } else {
+        conCheck += key + ",";
+        Log.wtf("entered ent",conCheck);
+        SharedPreferences.Editor editor = MyApp.sharedPreferences.edit();
+        editor.putString("CheckConsumer", conCheck).commit();
+        getOrders();
+    }
+    adapter.notifyDataSetChanged();
 
               /*  for(int i=0;orderParent.Orders.OrderArray.size()<0;i++)
                 {
@@ -324,12 +332,17 @@ public class GridViewDelivery extends Activity implements View.OnClickListener{
                 }*/
                 //orderParent.Orders.OrderArray.
                 System.out.println(String.format("Key %s entered the search area at [%f,%f]", key, location.latitude, location.longitude));
-            }
+}
+catch (Exception e)
+{
+    Log.wtf("ee",e.toString());
+}
+}
 
             @Override
             public void onKeyExited(String key) {
                 Log.wtf("exited", key);
-
+try{
                 if(!(MyApp.sharedPreferences.getString("CheckConsumer","").equalsIgnoreCase("")))
                 {
 
@@ -344,6 +357,12 @@ public class GridViewDelivery extends Activity implements View.OnClickListener{
 
 
                 System.out.println(String.format("Key %s is no longer in the search area", key));
+
+}
+catch (Exception e)
+{
+    Log.wtf("ee",e.toString());
+}
             }
 
             @Override
@@ -453,7 +472,7 @@ public class GridViewDelivery extends Activity implements View.OnClickListener{
         {
             Log.wtf("err",e.toString());
         }
-        String url = "http://sqweezy.com/DriveThru/Get_OrderDetails.php?merchant_id=1&delivery=true";
+        String url = MyApp.url+"Get_OrderDetails.php?merchant_id=1&delivery=true";
         // String url = "http://sqweezy.com/DriveThru/getOrderDetailsGrouped.php?merchant_id=20";
         StringRequest req = new StringRequest(url, new Response.Listener<String>() {
             @Override
@@ -505,7 +524,7 @@ public class GridViewDelivery extends Activity implements View.OnClickListener{
     private void getOrderedPickup() {
         //
         progressDialog.show();
-        String url = "http://sqweezy.com/DriveThru/Get_OrderDetails.php?merchant_id=1&pickedup=true";
+        String url = MyApp.url+"Get_OrderDetails.php?merchant_id=1&pickedup=true";
         // String url = "http://sqweezy.com/DriveThru/getOrderDetailsGrouped.php?merchant_id=20";
         StringRequest req = new StringRequest(url, new Response.Listener<String>() {
             @Override
@@ -544,7 +563,7 @@ public class GridViewDelivery extends Activity implements View.OnClickListener{
     private void getOrderedOther() {
         //
         progressDialog.show();
-        String url = "http://sqweezy.com/DriveThru/Get_OrderDetails.php?merchant_id=1&others=true";
+        String url = MyApp.url+"Get_OrderDetails.php?merchant_id=1&others=true";
         // String url = "http://sqweezy.com/DriveThru/getOrderDetailsGrouped.php?merchant_id=20";
         StringRequest req = new StringRequest(url, new Response.Listener<String>() {
             @Override
@@ -734,7 +753,6 @@ public class GridViewDelivery extends Activity implements View.OnClickListener{
 
 
     }
-
 
 
 

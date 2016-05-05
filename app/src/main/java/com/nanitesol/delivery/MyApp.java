@@ -13,10 +13,10 @@ import com.android.volley.toolbox.Volley;
 public class MyApp extends Application {
 
     static int checkLDT=2;
-    static RequestQueue reqstQ;
+   public static RequestQueue reqstQ;
     public static final String PREFS_NAME = "MyPrefsFile";
-
-    static SharedPreferences sharedPreferences;
+    public  static String url="http://www.dishem.com/DriveThru/";
+   public static SharedPreferences sharedPreferences;
     @Override
     public void onCreate() {
         super.onCreate();
